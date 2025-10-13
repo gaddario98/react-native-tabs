@@ -1,0 +1,59 @@
+{
+  "name": "@gaddario98/react-native-tabs",
+  "version": "1.0.15",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "peerDependencies": {
+    "@gaddario98/react-native-ui": "*",
+    "@react-navigation/bottom-tabs": "*",
+    "@react-navigation/native": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "expo-router": "*",
+    "i18next": "*",
+    "react": "*",
+    "react-i18next": "*",
+    "react-native": "*",
+    "react-native-safe-area-context": "*"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "rollup": "^4.40.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "typescript": "5.1.6"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gaddario98/react-native-tabs"
+  },
+  "keywords": [
+    "react-native",
+    "tabs",
+    "expo",
+    "navigation",
+    "bottom-tabs",
+    "component-library"
+  ],
+  "author": "Giosuè Addario",
+  "bugs": {
+    "url": "https://github.com/gaddario98/react-native-tabs/issues"
+  },
+  "homepage": "https://github.com/gaddario98/react-native-tabs#readme"
+}
