@@ -1,6 +1,6 @@
 {
   "name": "@gaddario98/react-native-tabs",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "dist/index.mjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -12,26 +12,39 @@
   "scripts": {
     "build": "rollup -c"
   },
-  "peerDependencies": {
-    "@gaddario98/react-native-ui": "*",
-    "@react-navigation/bottom-tabs": "*",
-    "@react-navigation/native": "*",
-    "@types/react": "*",
-    "@types/react-dom": "*",
-    "expo-router": "*",
-    "i18next": "*",
-    "react": "*",
-    "react-i18next": "*",
-    "react-native": "*",
-    "react-native-safe-area-context": "*"
-  },
   "devDependencies": {
+    "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "babel-plugin-react-compiler": "1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-native": "^0.82.0",
     "rollup": "^4.40.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "typescript": "5.1.6"
+    "typescript": "^5.8.3",
+    "@gaddario98/react-native-ui": "^1.0.20",
+    "@react-navigation/bottom-tabs": "^7.4.9",
+    "@react-navigation/native": "^7.1.18",
+    "expo-router": "^6.0.12",
+    "i18next": "^25.5.3",
+    "react-i18next": "^16.0.0",
+    "react-native-safe-area-context": "^5.6.1"
+  },
+  "peerDependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-native": "^0.82.0",
+    "@gaddario98/react-native-ui": "^1.0.20",
+    "@react-navigation/bottom-tabs": "^7.4.9",
+    "@react-navigation/native": "^7.1.18",
+    "expo-router": "^6.0.12",
+    "i18next": "^25.5.3",
+    "react-i18next": "^16.0.0",
+    "react-native-safe-area-context": "^5.6.1"
   },
   "exports": {
     ".": {
