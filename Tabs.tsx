@@ -49,6 +49,7 @@ export interface TabItemConfig {
     size: number;
   }) => React.ReactNode;
   title?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialParams?: Record<string, any>;
   href?: string | HrefObject;
   /** Optional badge value (number or string) */
@@ -160,7 +161,7 @@ const TabLayout: React.FC<TabLayoutProps> = ({
         : undefined,
       colors: {
         background: colors.surface,
-        activeTint: colors.primary,
+        activeTint: colors.onPrimary,
         inactiveTint: colors.onSurfaceVariant,
         border: colors.outline + "30",
         shadow: colors.shadow,
@@ -171,7 +172,15 @@ const TabLayout: React.FC<TabLayoutProps> = ({
       compact: false,
       useSafeAreaInset: true,
       style: undefined as StyleProp<ViewStyle>,
-      itemStyle: undefined as StyleProp<ViewStyle>,
+      itemStyle: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        borderRadius: 22,
+        backgroundColor: colors.onPrimary,
+      } as StyleProp<ViewStyle>,
       labelStyle: undefined as StyleProp<TextStyle>,
     };
 
@@ -242,14 +251,11 @@ const TabLayout: React.FC<TabLayoutProps> = ({
   }, [cfg.border, cfg.colors.border]);
 
   const safeAreaExtra = useMemo(
-    () =>cfg.useSafeAreaInset ? insets.bottom : 0,
-    [cfg.position, cfg.useSafeAreaInset, insets.bottom]
+    () => (cfg.useSafeAreaInset ? insets.bottom : 0),
+    [cfg.useSafeAreaInset, insets.bottom]
   );
   const height = useMemo(
-    () =>
-      cfg.height +
-      (cfg.padding.bottom || 0) +
-      (cfg.padding.top || 0) ,
+    () => cfg.height + (cfg.padding.bottom || 0) + (cfg.padding.top || 0),
     [cfg.height, cfg.padding.bottom, cfg.padding.top]
   );
 
@@ -258,21 +264,21 @@ const TabLayout: React.FC<TabLayoutProps> = ({
     // Safe area bottom padding
 
     // Enhanced glass style adaptation with backdrop blur
-    let backgroundColor = cfg.colors.background;
     let additionalStyles: ViewStyle = {};
 
     if (cfg.glass) {
       const alpha =
         typeof cfg.glass === "object" && "alpha" in cfg.glass
-          ? ((cfg.glass as any).alpha ?? 0.7)
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ((cfg.glass as any).alpha ?? 0.7)
           : 0.7;
-      backgroundColor = hexToRgba(colors.surface, alpha);
 
       // Enhanced glass effect styles
       additionalStyles = {
         ...Platform.select({
           web: {
             backdropFilter: "blur(20px)", // Web support
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } as any,
           ios: {
             backgroundColor: "rgba(255, 255, 255, 0.1)", // iOS blur overlay
@@ -286,7 +292,7 @@ const TabLayout: React.FC<TabLayoutProps> = ({
 
     return [
       {
-        backgroundColor:cfg.colors.background,
+        backgroundColor: cfg.colors.background,
         borderTopWidth: 0,
         height,
         paddingBottom: (cfg.padding.bottom || 0) + safeAreaExtra,
@@ -309,8 +315,6 @@ const TabLayout: React.FC<TabLayoutProps> = ({
     ];
   }, [
     cfg,
-    insets.bottom,
-    hexToRgba,
     colors.surface,
     getBorderRadiusStyle,
     getShadowStyle,
@@ -353,14 +357,14 @@ const TabLayout: React.FC<TabLayoutProps> = ({
           />
         </TabTrigger>
       )),
-    [tabs, cfg, translateTitles]
+    [tabs, cfg, translateTitles, ns, onTabChange]
   );
   return (
     <Tabs>
       <TabSlot />
 
       {/* Custom styled TabList */}
-      <TabList style={[tabBarStyle]}>{tabItems}</TabList>
+      <TabList style={tabBarStyle}>{tabItems}</TabList>
     </Tabs>
   );
 };

@@ -5,11 +5,12 @@ import { useTranslation } from "react-i18next";
 import type { TabItemConfig } from "./Tabs";
 import { TabTriggerSlotProps } from "expo-router/ui";
 
-import { setActiveTabName,useActiveTab } from "./useActiveTab";
+import { setActiveTabName, useActiveTab } from "./useActiveTab";
 type AnimatedTabButtonProps = TabTriggerSlotProps & {
   tab: TabItemConfig;
   translateTitles?: boolean;
-  cfg?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  cfg?: Record<string, any>;
   ns?: string; // namespace for i18n
   onTabChange?: (prev: string | undefined, next: string) => void;
 };
@@ -30,8 +31,8 @@ const AnimatedTabButton = ({
   const { t } = useTranslation(ns);
   const activeTab = useActiveTab();
   const focused = useMemo(() => !!isFocused, [isFocused]);
-  const scaleAnim = React.useRef(new Animated.Value(1)).current;
-  const glowAnim = React.useRef(new Animated.Value(0)).current;
+  const [scaleAnim] = React.useState(() => new Animated.Value(1));
+  const [glowAnim] = React.useState(() => new Animated.Value(0));
   const displayTitle = useMemo(
     () => (translateTitles ? t(tab.title || tab.name) : tab.title || tab.name),
     [tab.title, tab.name, t, translateTitles]
@@ -45,7 +46,13 @@ const AnimatedTabButton = ({
         ? cfg.colors?.activeTint || colors.primary
         : cfg.colors?.inactiveTint || colors.onSurfaceVariant,
     }),
-    [cfg.colors, colors]
+    [
+      cfg.colors?.activeTint,
+      cfg.colors?.inactiveTint,
+      colors.onSurfaceVariant,
+      colors.primary,
+      focused,
+    ]
   );
 
   React.useEffect(() => {
@@ -60,7 +67,7 @@ const AnimatedTabButton = ({
       duration: 250,
       useNativeDriver: true,
     }).start();
-  }, [focused, scaleAnim, glowAnim]);
+  }, [focused, glowAnim, scaleAnim]);
 
   return (
     <Pressable
@@ -90,13 +97,7 @@ const AnimatedTabButton = ({
         {/* Glow effect */}
         <Animated.View
           style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            borderRadius: 22,
-            backgroundColor: currentColors.iconColor,
+            ...(cfg?.itemStyle ?? {}),
             opacity: glowAnim.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 0.15],
