@@ -295,13 +295,15 @@ const TabLayout: React.FC<TabLayoutProps> = ({
         backgroundColor: cfg.colors.background,
         borderTopWidth: 0,
         height,
-        paddingBottom: (cfg.padding.bottom || 0) + safeAreaExtra,
+        paddingBottom: cfg.padding.bottom || 0,
         paddingTop: cfg.padding.top,
         paddingHorizontal: cfg.padding.horizontal,
         position: cfg.position,
         left: 0,
         right: 0,
-        bottom: cfg.position === "absolute" ? cfg.margin.bottom : 0,
+        bottom:
+          (cfg.position === "absolute" ? (cfg.margin.bottom ?? 0) : 0) +
+          safeAreaExtra,
         marginHorizontal: cfg.margin.horizontal,
         flexDirection: "row",
         justifyContent: "space-around",
