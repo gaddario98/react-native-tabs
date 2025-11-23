@@ -83,26 +83,18 @@ const AnimatedTabButton = ({
       accessibilityState={{ selected: focused }}
       {...rest}
     >
-      <Animated.View
-        style={[
-          {
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            position: "relative",
-          },
-          cfg.itemStyle,
-        ]}
-      >
+      <Animated.View style={cfg.itemStyle}>
         {/* Glow effect */}
         <Animated.View
-          style={{
-            ...(cfg?.itemStyle ?? {}),
-            opacity: glowAnim.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, 0.15],
-            }),
-          }}
+          style={[
+            {
+              opacity: glowAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 0.15],
+              }),
+            },
+            ...cfg?.glowItemStyle,
+          ]}
         />
         {/* Icon */}
         {tab.tabBarIcon && (

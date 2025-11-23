@@ -118,6 +118,7 @@ export interface TabLayoutProps {
     style?: StyleProp<ViewStyle>;
     itemStyle?: StyleProp<ViewStyle>;
     labelStyle?: StyleProp<TextStyle>;
+    glowItemStyle?: StyleProp<ViewStyle>;
   };
 }
 
@@ -173,6 +174,12 @@ const TabLayout: React.FC<TabLayoutProps> = ({
       useSafeAreaInset: true,
       style: undefined as StyleProp<ViewStyle>,
       itemStyle: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+      } as StyleProp<ViewStyle>,
+      glowItemStyle: {
         position: "absolute",
         top: 0,
         left: 0,
@@ -188,6 +195,11 @@ const TabLayout: React.FC<TabLayoutProps> = ({
     config.margin = { ...barDefaults.margin, ...(bar?.margin || {}) };
     config.padding = { ...barDefaults.padding, ...(bar?.padding || {}) };
     config.colors = { ...barDefaults.colors, ...(bar?.colors || {}) };
+    config.itemStyle = [barDefaults.itemStyle, bar?.itemStyle ?? {}];
+    config.glowItemStyle = [
+      barDefaults.glowItemStyle,
+      bar?.glowItemStyle ?? {},
+    ];
 
     // Compact adjustments
     if (config.compact) {

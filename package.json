@@ -1,6 +1,6 @@
 {
   "name": "@gaddario98/react-native-tabs",
-  "version": "1.0.22",
+  "version": "1.0.25",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -37,7 +37,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@gaddario98/react-native-ui": "^1.0.25"
+    "@gaddario98/react-native-ui": "^1.0.30"
   },
   "peerDependencies": {
     "@react-navigation/bottom-tabs": ">=6.0.0",
